@@ -1588,6 +1588,9 @@ class Connection(object):
         values = data.split(b(" "))
         if values[0] in self._commands_with_count:
             ps.cmd['command'] = values[0]
+            if len(values) == 1:
+                # redshift retuns only 1 for SELECT
+                return
             row_count = int(values[-1])
             if ps.row_count == -1:
                 ps.row_count = row_count
